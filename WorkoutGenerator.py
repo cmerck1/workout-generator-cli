@@ -1,5 +1,6 @@
 from random import sample
 
+#Create different classes for each muscle group and store a list of exercises in each.
 class Muscle_Group(object):
     exercises = []
 
@@ -30,9 +31,13 @@ class Forearms(Muscle_Group):
 class Abs(Muscle_Group):
     exercises = ["Crunches", "Dead Bugs", "Hanging Leg Lifts", "Windshield Wipers", "Planks", "Flutter Kicks"]
 
+#Create the generator class which will actually create the routines according to the desired number of days per week.
 class Generator(object):
+    #This will be the template for the table so that it all prints out uniformly.
     template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
+    #Get input from the user for number of days per week to work out and store it in a variable called "days".
     days = input("How many days would you like to workout this week?\n>>> ")
+    #Loop through the input request until the user gives a number. The loop continues until a number is given.
     while True:
         try:
             days = int(days)
@@ -41,11 +46,14 @@ class Generator(object):
             days = input("How many days would you like to workout this week?\n>>> ")
         else:
             break
+    #If the user only wants to work out 1 day of the week, a full body workout will be generated.
     if days == 1:
+        #The format for the header.
         print("-" * 103)
         print('| {:^99} |'.format("You should workout at least 2-3 times a week, but if you can only manage one day this week,"))
         print('| {:^99} |'.format("here's your routine:"))
         print("|", "-" * 99, "|")
+        #The sample method grabs a number of random exercises from the given list and stores it in a variable according to the exercise.
         chest_exercises = sample(Chest.exercises, 1)
         back_exercises = sample(Back.exercises, 1)
         legs_exercises = sample(Legs.exercises, 1)
@@ -57,6 +65,7 @@ class Generator(object):
         abs_exercises = sample(Abs.exercises, 1)
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
+        #This section prints out the exercises in a list according to the template above.
         for item in chest_exercises:
             print (template.format(item, '_____', '4', '8-12', '_____')) 
         for item in back_exercises:
@@ -78,6 +87,7 @@ class Generator(object):
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
+    #A 2 day split should consist of an upper body and a lower body day.
     elif days == 2:
         print("-" * 103)
         print('| {:^99} |'.format("Upper Body Day"))
@@ -119,6 +129,7 @@ class Generator(object):
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
+    #A 3 day split will have a chest day, back day, and leg day.
     elif days == 3:
         print("-" * 103)
         print('| {:^99} |'.format("Chest Day"))
@@ -148,6 +159,9 @@ class Generator(object):
             print (template.format(item, '_____', '4', '8-12', '_____')) 
         for item in forearms_exercises:
             print (template.format(item, '_____', '4', '8-12', '_____')) 
+    #If the user tries to input more than 6 days, a warning comes up that they should rest at least one day and
+    #no workout is generated. In the future I'd like to make this loop so that it continues until the number 
+    #given is less than 7.
     elif days > 6:
         print ("You should take at least one day per week to rest.")
         pass
