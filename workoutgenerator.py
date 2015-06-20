@@ -1,35 +1,5 @@
 from random import sample
-
-#Create different classes for each muscle group and store a list of exercises in each.
-class Muscle_Group(object):
-    exercises = []
-
-class Chest(Muscle_Group):
-    exercises = ["Push Ups","Barbell Chest Press", "Dumbbell Chest Press","Dumbbell Flies","Cable Crossovers","Inclined Dumbbell Chest Press","Inclined Barbell Chest Press","Declined Dumbbell Chest Press","Declined Barbell Chest Press"]
-
-class Back(Muscle_Group):
-    exercises = ["Pull Ups","Barbell Bent-Over Row","Seated Cable Row","Dumbbell Bent-Over Row","Seated Lat-Pulldown"]
-
-class Legs(Muscle_Group):
-    exercises = ["Squats", "Deadlifts", "Leg Press", "Quadriceps Extensions", "Hamstring Curls"]
-
-class Lower_Legs(Muscle_Group):
-    exercises = ["Dumbbell Calf Raises", "Smith Press Calf Raises", "Leg Press Calf Raises"]
-
-class Biceps(Muscle_Group):
-    exercises = ["Dumbbell Preacher Curls", "Dumbbell Hammer Curls", "Barbell Preacher Curls", "Cable Hammer Curls", "Cable Preacher Curls"]
-
-class Triceps(Muscle_Group):
-    exercises = ["Overhead Dumbbell Triceps Extensions", "Overhead Cable Triceps Extensions", "Narrow-Grip Barbell Bench Press", "Narrow-Grip Dumbbell Bench Press", "Weighted Dips", "Cable Triceps Pull-Down"]
-
-class Shoulders(Muscle_Group):
-    exercises = ["Dumbbell Lateral Flies", "Dumbbell Shoulder Press", "Barbell Shoulder Press", "Cable Reverse Crossover"]
-
-class Forearms(Muscle_Group):
-    exercises = ["Barbell Wrist Flexion", "Barbell Wrist Extension", "Weighted String Flexion", "Weighted String Extension"]
-
-class Abs(Muscle_Group):
-    exercises = ["Crunches", "Dead Bugs", "Hanging Leg Lifts", "Windshield Wipers", "Planks", "Flutter Kicks"]
+from exercises import *
 
 #Create the generator class which will actually create the routines according to the desired number of days per week.
 class Generator(object):
@@ -134,9 +104,9 @@ class Generator(object):
         print("-" * 103)
         print('| {:^99} |'.format("Chest Day"))
         print("|", "-" * 99, "|")
-        chest_exercises = sample(Chest.exercises, 1)
-        triceps_exercises = sample(Triceps.exercises, 1)
-        shoulders_exercises = sample(Shoulders.exercises, 1)
+        chest_exercises = sample(Chest.exercises, 3)
+        triceps_exercises = sample(Triceps.exercises, 2)
+        shoulders_exercises = sample(Shoulders.exercises, 2)
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in chest_exercises:
@@ -148,9 +118,9 @@ class Generator(object):
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Back Day"))
         print("|", "-" * 99, "|")
-        back_exercises = sample(Back.exercises, 2)
-        biceps_exercises = sample(Biceps.exercises, 1)
-        forearms_exercises = sample(Forearms.exercises, 1)
+        back_exercises = sample(Back.exercises, 3)
+        biceps_exercises = sample(Biceps.exercises, 2)
+        forearms_exercises = sample(Forearms.exercises, 2)
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in back_exercises:
@@ -159,9 +129,78 @@ class Generator(object):
             print (template.format(item, '_____', '4', '8-12', '_____')) 
         for item in forearms_exercises:
             print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Leg Day"))
+        print("|", "-" * 99, "|")
+        legs_exercises = sample(Legs.exercises, 3)
+        lower_legs_exercises = sample(Lower_Legs.exercises, 2)
+        abs_exercises = sample(Abs.exercises, 2)
+        print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
+        print("|", "-" * 99, "|")
+        for item in legs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in lower_legs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in abs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
+        print("-" * 103)
+    #A 4 day split should have a Chest Day, Back Day, Leg Day, and Shoulder/Forearm/Ab Day
+    elif days == 4:
+        print("-" * 103)
+        print('| {:^99} |'.format("Chest Day"))
+        print("|", "-" * 99, "|")
+        chest_exercises = sample(Chest.exercises, 4)
+        triceps_exercises = sample(Triceps.exercises, 3)
+        print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
+        print("|", "-" * 99, "|")
+        for item in chest_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in triceps_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Back Day"))
+        print("|", "-" * 99, "|")
+        back_exercises = sample(Back.exercises, 4)
+        biceps_exercises = sample(Biceps.exercises, 3)
+        print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
+        print("|", "-" * 99, "|")
+        for item in back_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in biceps_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Leg Day"))
+        print("|", "-" * 99, "|")
+        legs_exercises = sample(Legs.exercises, 4)
+        lower_legs_exercises = sample(Lower_Legs.exercises, 3)
+        print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
+        print("|", "-" * 99, "|")
+        for item in legs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in lower_legs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Arm Day"))
+        print("|", "-" * 99, "|")
+        shoulders_exercises = sample(Shoulders.exercises, 3)
+        forearms_exercises = sample(Forearms.exercises, 3)
+        abs_exercises = sample(Abs.exercises, 3)
+        print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
+        print("|", "-" * 99, "|")
+        for item in shoulders_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in forearms_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        for item in abs_exercises:
+            print (template.format(item, '_____', '4', '8-12', '_____')) 
+        print("|", "-" * 99, "|")
+        print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
+        print("-" * 103)
     #If the user tries to input more than 6 days, a warning comes up that they should rest at least one day and
     #no workout is generated. In the future I'd like to make this loop so that it continues until the number 
     #given is less than 7.
-    elif days > 6:
-        print ("You should take at least one day per week to rest.")
+    elif days >= 5:
+        print ("You should take a couple of days per week to rest.")
         pass
