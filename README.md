@@ -11,12 +11,11 @@ Python Workout Generator v0.4
 
 * Make sure you're using Python 3.4.3.
 * Fork the repository to a safe location on your hard drive and pull every time you want to work on it.
-* Comment out all of the code that you write even if it seems obvious what's going on. 
-* After you finish what you wanted to work on, commit the changes you made and write a brief message explaining what you did. Then push your changes to the server. 
 
 ### Contribution guidelines ###
 
 * Comment out all new code additions and write out new additions in commit messages.
+* After you finish what you wanted to work on, commit the changes you made and write a brief message explaining what you did. Then push your changes to the server. 
 
 ### Who do I talk to? ###
 
