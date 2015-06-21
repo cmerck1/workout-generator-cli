@@ -21,6 +21,12 @@ Python Workout Generator v0.4
 
 * Project Lead: Billy Brawner billybrawner@gmail.com
 
+### Current Features ###
+
+* Generate a random workout for a user.
+* Take into account the number of days per week they want to/are able to work out.
+* Muscles accounted for in the workout: chest, back, legs, triceps, biceps, shoulders, forearms, calves, abs.
+
 ### Possible future features ###
 
 * Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout give accordingly.
