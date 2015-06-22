@@ -29,9 +29,11 @@ Python Workout Generator v0.4
 
 ### Possible future features ###
 
+* Take into account a user's goals (Strength, Endurance, Hypertrophy.)
 * Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout give accordingly.
+* Take into account a user's preference (Free weights, selectorized equipment, or cable equipment.)
 * Save routine to a file for easy access later.
-* Allow user to input how may sets, reps, and weight for each exercise completed in order to track their progress.
+* Allow user to input how many sets, reps, and weight for each exercise completed in order to track their progress.
 * Allow user to substitute individual exercises in their list.
 * Remember weight used for each exercise in previous workouts if the user has input them afterwards and suggest the highest weight used for each.
 * Convert to a web app or native mobile app for use on phones/tablets (maybe both, since Apple is super strict on their app acceptance policy.)
