@@ -3,10 +3,28 @@ from exercises import *
 
 #Create the generator class which will actually create the routines according to the desired number of days per week.
 class Generator(object):
-    #This will be the template for the table so that it all prints out uniformly.
-    template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
-    #Get input from the user for number of days per week to work out and store it in a variable called "days".
     days = input("How many days would you like to workout this week?\n>>> ")
+    #Get  input from user for goals and store it in a variable called "goal".
+    goal = input("Is your goal to gain strength, endurance, or hypertrophy?\n>>> ")
+    goal = goal.lower()
+    #This section changes the information printed out and the format printed according to the goal.
+    if "strength" in goal:
+        sets = "5-8"
+        target_reps = "1-6"
+        actual_reps = "__/__/__/__/__/__/__/__"
+        template = '| {:^35} | {:^7} | {:^6} | {:^12} | {:^27} |'
+    elif "endurance" in goal:
+        sets = "1-3"
+        target_reps = "15-20"
+        actual_reps = "__/__/__"
+        template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
+    elif "hypertrophy" in goal:
+        sets = "4"
+        target_reps = "8-12"
+        actual_reps = "__/__/__/__"
+        template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
+    else:
+        print ("Sorry, please try again.")
     #Loop through the input request until the user gives a number. The loop continues until a number is given.
     while True:
         try:
@@ -37,23 +55,23 @@ class Generator(object):
         print("|", "-" * 99, "|")
         #This section prints out the exercises in a list according to the template above.
         for item in chest_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in back_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in lower_legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in biceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in triceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in shoulders_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in forearms_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in abs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
@@ -71,17 +89,17 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in chest_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in back_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in biceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in triceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in shoulders_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in forearms_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Lower Body Day"))
         print("|", "-" * 99, "|")
@@ -91,11 +109,11 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in lower_legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in abs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
@@ -110,11 +128,11 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in chest_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in triceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in shoulders_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Back Day"))
         print("|", "-" * 99, "|")
@@ -124,11 +142,11 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in back_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in biceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in forearms_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Leg Day"))
         print("|", "-" * 99, "|")
@@ -138,11 +156,11 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in lower_legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in abs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
@@ -156,9 +174,9 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in chest_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in triceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Back Day"))
         print("|", "-" * 99, "|")
@@ -167,9 +185,9 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in back_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in biceps_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Leg Day"))
         print("|", "-" * 99, "|")
@@ -178,9 +196,9 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in lower_legs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Arm Day"))
         print("|", "-" * 99, "|")
@@ -190,11 +208,11 @@ class Generator(object):
         print (template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))
         print("|", "-" * 99, "|")
         for item in shoulders_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in forearms_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         for item in abs_exercises:
-            print (template.format(item, '_____', '4', '8-12', '_____')) 
+            print (template.format(item, '_____', sets, target_reps, actual_reps)) 
         print("|", "-" * 99, "|")
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))
         print("-" * 103)
