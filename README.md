@@ -26,11 +26,11 @@ Python Workout Generator v0.4
 * Generate a random workout for a user.
 * Take into account the number of days per week they want to/are able to work out.
 * Muscles accounted for in the workout: chest, back, legs, triceps, biceps, shoulders, forearms, calves, abs.
+* Take into account a user's goals (Strength, Endurance, Hypertrophy.)
 
 ### Possible future features ###
 
-* Take into account a user's goals (Strength, Endurance, Hypertrophy.)
-* Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout give accordingly.
+* Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout given accordingly.
 * Take into account a user's preference (Free weights, selectorized equipment, or cable equipment.)
 * Save routine to a file for easy access later.
 * Allow user to input how many sets, reps, and weight for each exercise completed in order to track their progress.
