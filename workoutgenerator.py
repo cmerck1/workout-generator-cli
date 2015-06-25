@@ -25,9 +25,11 @@ class Generator(object):
         template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
     else:
         print ("Sorry, please try again.")
+
     #Ask the user how many days per week they want to work out and store that number in a variable called
     #"days".
     days = input("How many days would you like to workout this week?\n>>> ")
+
     #Loop through the input request until the user gives a number. The loop continues until a number is given.
     while True:
         try:
@@ -37,6 +39,12 @@ class Generator(object):
             days = input("How many days would you like to workout this week?\n>>> ")
         else:
             break
+
+    #This funciton takes the user's preferences for each given category of exercises and if the user says
+    #they do like using a given piece of equipment/style of working out, then the list of those exercises
+    #for each muscle group are added to the main list for each muscle group. If the user says they don't
+    #like a certain type of exercise, then the list of those exercises is just ignored. Only exercises
+    #found in the main exercises list are used when generating the workout.
     def user_preference(equipment0, equipment1, equipment2, equipment3, equipment4, equipment5, equipment6, equipment7, equipment8, name):
         preference = input("Do you like doing {!s} exercises?\n>>> ".format(name))
         if "y" in preference:
@@ -63,7 +71,14 @@ class Generator(object):
         else:
             print ("Sorry, please try inputting yes or no.")
         return preference
+
+    #Here the function is called for each type of exercise to build the main exercise list which
+    #is the only list considered in generating the workout.
     user_preference(Chest.selectorized, Back.selectorized, Legs.selectorized, Lower_Legs.selectorized, Biceps.selectorized, Triceps.selectorized, Shoulders.selectorized, Forearms.selectorized, Abs.selectorized, "selectorized equipment")
+    #In order to remove some repition, and since dumbbells and barbells are part of the free
+    #weights category, the program will only ask the user if they want to use dumbbells and
+    #barbells if they have already said that they like free weights. Otherwise, those two
+    #options are skipped.
     fwpref = user_preference(Chest.free_weights, Back.free_weights, Legs.free_weights, Lower_Legs.free_weights, Biceps.free_weights, Triceps.free_weights, Shoulders.free_weights, Forearms.free_weights, Abs.free_weights, "free weights")
     if "y" in fwpref:
         user_preference(Chest.dumbbell, Back.dumbbell, Legs.dumbbell, Lower_Legs.dumbbell, Biceps.dumbbell, Triceps.dumbbell, Shoulders.dumbbell, Forearms.dumbbell, Abs.dumbbell, "dumbbell")
@@ -72,6 +87,7 @@ class Generator(object):
         pass
     user_preference(Chest.calisthenics, Back.calisthenics, Legs.calisthenics, Lower_Legs.calisthenics, Biceps.calisthenics, Triceps.calisthenics, Shoulders.calisthenics, Forearms.calisthenics, Abs.calisthenics, "calisthenics")
     user_preference(Chest.cable, Back.cable, Legs.cable, Lower_Legs.cable, Biceps.cable, Triceps.cable, Shoulders.cable, Forearms.cable, Abs.cable, "cable equipment")
+
     #If the user only wants to work out 1 day of the week, a full body workout will be generated.
     if days == 1:
         #The format for the header.
