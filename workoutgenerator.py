@@ -62,9 +62,14 @@ class Generator(object):
             pass
         else:
             print ("Sorry, please try inputting yes or no.")
+        return preference
     user_preference(Chest.selectorized, Back.selectorized, Legs.selectorized, Lower_Legs.selectorized, Biceps.selectorized, Triceps.selectorized, Shoulders.selectorized, Forearms.selectorized, Abs.selectorized, "selectorized equipment")
-    user_preference(Chest.dumbbell, Back.dumbbell, Legs.dumbbell, Lower_Legs.dumbbell, Biceps.dumbbell, Triceps.dumbbell, Shoulders.dumbbell, Forearms.dumbbell, Abs.dumbbell, "dumbbell")
-    user_preference(Chest.barbell, Back.barbell, Legs.barbell, Lower_Legs.barbell, Biceps.barbell, Triceps.barbell, Shoulders.barbell, Forearms.barbell, Abs.barbell, "barbell")
+    fwpref = user_preference(Chest.free_weights, Back.free_weights, Legs.free_weights, Lower_Legs.free_weights, Biceps.free_weights, Triceps.free_weights, Shoulders.free_weights, Forearms.free_weights, Abs.free_weights, "free weights")
+    if "y" in fwpref:
+        user_preference(Chest.dumbbell, Back.dumbbell, Legs.dumbbell, Lower_Legs.dumbbell, Biceps.dumbbell, Triceps.dumbbell, Shoulders.dumbbell, Forearms.dumbbell, Abs.dumbbell, "dumbbell")
+        user_preference(Chest.barbell, Back.barbell, Legs.barbell, Lower_Legs.barbell, Biceps.barbell, Triceps.barbell, Shoulders.barbell, Forearms.barbell, Abs.barbell, "barbell")
+    else:
+        pass
     user_preference(Chest.calisthenics, Back.calisthenics, Legs.calisthenics, Lower_Legs.calisthenics, Biceps.calisthenics, Triceps.calisthenics, Shoulders.calisthenics, Forearms.calisthenics, Abs.calisthenics, "calisthenics")
     user_preference(Chest.cable, Back.cable, Legs.cable, Lower_Legs.cable, Biceps.cable, Triceps.cable, Shoulders.cable, Forearms.cable, Abs.cable, "cable equipment")
     #If the user only wants to work out 1 day of the week, a full body workout will be generated.
