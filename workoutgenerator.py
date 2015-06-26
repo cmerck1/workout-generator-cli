@@ -289,8 +289,12 @@ class Generator(object):
             print ("You should take a couple of days per week to rest.")
             pass
 
+class Engine(object):
+    def start(Generator):
+        Generator.get_goal()
+        Generator.get_preferences()
+        days = Generator.get_frequency()
+        Generator.give_workout(days)
+
 gen1 = Generator()
-gen1.get_goal()
-gen1.get_preferences()
-days = gen1.get_frequency()
-gen1.give_workout(days)
+Engine.start(gen1)
