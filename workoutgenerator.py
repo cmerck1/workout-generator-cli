@@ -34,11 +34,24 @@ class Generator(object):
                 goal = goal.lower()
         return self.sets, self.target_reps, self.actual_reps, self.template
 
+    def get_experience(self):
+        #Ask the user how much experience they have working out and store that number in a variable called
+        #"experience".
+        self.experience = input("How long have you been working out for?\n1. 0-6 months\n2. 6 months - 2 years\n3. 2+ years\n>>> ")
+        #Loop through the input request until the user gives a number. The loop continues until a number is given.
+        while True:
+            try:
+                self.experience = int(self.experience)
+            except ValueError:
+                print ("Oops, please enter either 1, 2, or 3.")
+                self.experience = input("How long have you been working out for?\n1. 0-6 months\n2. 6 months - 2 years\n3. 2+ years\n>>> ")
+            else:
+                break
+
     def get_frequency(self):
         #Ask the user how many days per week they want to work out and store that number in a variable called
         #"days".
         self.days = input("How many days would you like to workout this week?\n>>> ")
-
         #Loop through the input request until the user gives a number. The loop continues until a number is given.
         while True:
             try:
@@ -144,7 +157,7 @@ class Generator(object):
         for item in muscle_group:
             print (self.template.format(item, '_____', self.sets, self.target_reps, self.actual_reps), file = log) 
 
-    def give_workout(self, days):
+    def create_workout(self, days):
         #If the user only wants to work out 1 day of the week, a full body workout will be generated.
         if self.days == 1:
             Generator.header("Full Body Day")
@@ -294,7 +307,7 @@ class Engine(object):
         Generator.get_goal()
         Generator.get_preferences()
         days = Generator.get_frequency()
-        Generator.give_workout(days)
+        Generator.create_workout(days)
 
 gen1 = Generator()
 Engine.start(gen1)
