@@ -11,6 +11,7 @@ Python Workout Generator v0.4
 
 * Make sure you're using Python 3.4.3.
 * Fork the repository to a safe location on your hard drive and pull every time you want to work on it.
+* This repository is accessible via HTTPS or SSH
 
 ### Contribution guidelines ###
 
