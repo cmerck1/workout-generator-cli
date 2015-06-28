@@ -47,6 +47,7 @@ class Generator(object):
                 self.experience = input("How long have you been working out for?\n1. 0-6 months\n2. 6 months - 2 years\n3. 2+ years\n>>> ")
             else:
                 break
+        return self.experience
 
     def get_frequency(self):
         #Ask the user how many days per week they want to work out and store that number in a variable called
@@ -61,6 +62,21 @@ class Generator(object):
                 self.days = input("How many days would you like to workout this week?\n>>> ")
             else:
                 break
+        return self.days
+
+    def check_frequency(self, days):
+        while self.days >= 7 or self.days < 1:
+            if self.days == 7:
+                print("You need to take at least one rest day per week.")
+                self.days = Generator.get_frequency(self)
+            elif self.days < 1:
+                print("You need to work out at least one day per week.")
+                self.days = Generator.get_frequency(self)
+            elif self.days > 7:
+                print("There are only 7 days per week!")
+                self.days = Generator.get_frequency(self)
+            else:
+                pass
         return self.days
 
     #This funciton takes the user's preferences for each given category of exercises and if the user says
@@ -115,16 +131,22 @@ class Generator(object):
         Generator.user_preference(self, Chest.calisthenics, Back.calisthenics, Legs.calisthenics, Lower_Legs.calisthenics, Biceps.calisthenics, Triceps.calisthenics, Shoulders.calisthenics, Forearms.calisthenics, Abs.calisthenics, "calisthenic exercises")
         Generator.user_preference(self, Chest.cable, Back.cable, Legs.cable, Lower_Legs.cable, Biceps.cable, Triceps.cable, Shoulders.cable, Forearms.cable, Abs.cable, "cable equipment")
 
+    def workout_title(self, days, experience):
+        if experience == 1:
+            print("-" * 103, file = log)
+            print('| {:^99} |'.format("Beginner - " + str(days) + " Day Split"), file = log)
+        elif experience == 2:
+            print("-" * 103, file = log)
+            print('| {:^99} |'.format("Intermediate - " + str(days) + " Day Split"), file = log)
+        elif experience == 3:
+            print("-" * 103, file = log)
+            print('| {:^99} |'.format("Advanced - " + str(days) + " Day Split"), file = log)
+
     #The format for the header, taking the name of the workout day as an argument.
     def header(workout):
-        if "Chest" in workout or "Full" in workout or "Upper" in workout:
-            print("-" * 103, file = log)
-            print('| {:^99} |'.format(workout), file = log)
-            print("|", "-" * 99, "|", file = log)
-        else:
-            print("|", "-" * 99, "|", file = log)
-            print('| {:^99} |'.format(workout), file = log)
-            print("|", "-" * 99, "|", file = log)
+        print("|", "-" * 99, "|", file = log)
+        print('| {:^99} |'.format(workout), file = log)
+        print("|", "-" * 99, "|", file = log)
 
     def section(name):
         if name == "Warm Ups":
@@ -141,8 +163,8 @@ class Generator(object):
             print('| {:<99} |'.format(name), file = log)
             print("|", "-" * 99, "|", file = log)
 
-    #This formats the titles of the columns.
-    def titles(self):
+    #This formats the column_titles of the columns.
+    def column_titles(self):
         print (self.template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"), file = log)
         print("|", "-" * 99, "|", file = log)
 
@@ -157,157 +179,197 @@ class Generator(object):
         for item in muscle_group:
             print (self.template.format(item, '_____', self.sets, self.target_reps, self.actual_reps), file = log) 
 
-    def create_workout(self, days):
-        #If the user only wants to work out 1 day of the week, a full body workout will be generated.
-        if self.days == 1:
-            Generator.header("Full Body Day")
-            #The sample method grabs a number of random exercises from the given list and stores
-            #them in a variable according to the exercise.
-            chest_exercises = sample(Chest.exercises, 1)
-            back_exercises = sample(Back.exercises, 1)
-            legs_exercises = sample(Legs.exercises, 1)
-            lower_legs_exercises = sample(Lower_Legs.exercises, 1)
-            biceps_exercises = sample(Biceps.exercises, 1)
-            triceps_exercises = sample(Triceps.exercises, 1)
-            shoulders_exercises = sample(Shoulders.exercises, 1)
-            forearms_exercises = sample(Forearms.exercises, 1)
-            abs_exercises = sample(Abs.exercises, 1)
-            Generator.section("Warm Ups")
-            #This section prints out the exercises in a list according to the template above.
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, chest_exercises)
-            Generator.print_exercises(self, back_exercises)
-            Generator.print_exercises(self, legs_exercises)
-            Generator.print_exercises(self, lower_legs_exercises)
-            Generator.print_exercises(self, biceps_exercises)
-            Generator.print_exercises(self, triceps_exercises)
+    def generate_cardio(self, exercises):
+        Generator.header("Cardio Day")
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        print("I need to add cardio exercises.", file = log)
+        Generator.section("Cool Down")
+
+    def generate_full_body(self, large_muscle, small_muscle):
+        Generator.header("Full Body Day")
+        #The sample method grabs a number of random exercises from the given list and stores
+        #them in a variable according to the exercise.
+        Generator.section("Warm Ups")
+        #This section prints out the exercises in a list according to the template above.
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        chest_exercises = sample(Chest.exercises, large_muscle)
+        back_exercises = sample(Back.exercises, large_muscle)
+        legs_exercises = sample(Legs.exercises, large_muscle)
+        lower_legs_exercises = sample(Lower_Legs.exercises, small_muscle)
+        biceps_exercises = sample(Biceps.exercises, small_muscle)
+        triceps_exercises = sample(Triceps.exercises, small_muscle)
+        shoulders_exercises = sample(Shoulders.exercises, small_muscle)
+        forearms_exercises = sample(Forearms.exercises, small_muscle)
+        abs_exercises = sample(Abs.exercises, small_muscle)
+        Generator.print_exercises(self, chest_exercises)
+        Generator.print_exercises(self, back_exercises)
+        Generator.print_exercises(self, legs_exercises)
+        Generator.print_exercises(self, lower_legs_exercises)
+        Generator.print_exercises(self, biceps_exercises)
+        Generator.print_exercises(self, triceps_exercises)
+        Generator.print_exercises(self, shoulders_exercises)
+        Generator.print_exercises(self, forearms_exercises)
+        Generator.print_exercises(self, abs_exercises)
+        Generator.section("Cool Down")
+
+    def generate_upper_body(self, large_muscle, small_muscle):
+        Generator.header("Upper Body Day")
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        chest_exercises = sample(Chest.exercises, large_muscle)
+        back_exercises = sample(Back.exercises, large_muscle)
+        biceps_exercises = sample(Biceps.exercises, small_muscle)
+        triceps_exercises = sample(Triceps.exercises, small_muscle)
+        shoulders_exercises = sample(Shoulders.exercises, small_muscle)
+        forearms_exercises = sample(Forearms.exercises, small_muscle)
+        Generator.print_exercises(self, chest_exercises)
+        Generator.print_exercises(self, back_exercises)
+        Generator.print_exercises(self, biceps_exercises)
+        Generator.print_exercises(self, triceps_exercises)
+        Generator.print_exercises(self, shoulders_exercises)
+        Generator.print_exercises(self, forearms_exercises)
+        Generator.section("Cool Down")
+
+    def generate_lower_body(self, large_muscle, small_muscle):
+        Generator.header("Lower Body Day")
+        legs_exercises = sample(Legs.exercises, large_muscle)
+        lower_legs_exercises = sample(Lower_Legs.exercises, small_muscle)
+        abs_exercises = sample(Abs.exercises, small_muscle)
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        Generator.print_exercises(self, legs_exercises)
+        Generator.print_exercises(self, lower_legs_exercises)
+        Generator.print_exercises(self, abs_exercises)
+        Generator.section("Cool Down")
+
+    def generate_chest(self, days, large_muscle, small_muscle):
+        Generator.header("Chest Day")
+        chest_exercises = sample(Chest.exercises, large_muscle)
+        triceps_exercises = sample(Triceps.exercises, small_muscle)
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        Generator.print_exercises(self, chest_exercises)
+        Generator.print_exercises(self, triceps_exercises)
+        if days == 3:
+            shoulders_exercises = sample(Shoulders.exercises, small_muscle)
             Generator.print_exercises(self, shoulders_exercises)
-            Generator.print_exercises(self, forearms_exercises)
-            Generator.print_exercises(self, abs_exercises)
-            Generator.section("Cool Down")
-            Generator.footer()
-        #A 2 day split should consist of an upper body and a lower body day.
-        elif days == 2:
-            Generator.header("Upper Body Day")
-            chest_exercises = sample(Chest.exercises, 2)
-            back_exercises = sample(Back.exercises, 2)
-            biceps_exercises = sample(Biceps.exercises, 1)
-            triceps_exercises = sample(Triceps.exercises, 1)
-            shoulders_exercises = sample(Shoulders.exercises, 1)
-            forearms_exercises = sample(Forearms.exercises, 1)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, chest_exercises)
-            Generator.print_exercises(self, back_exercises)
-            Generator.print_exercises(self, biceps_exercises)
-            Generator.print_exercises(self, triceps_exercises)
-            Generator.print_exercises(self, shoulders_exercises)
-            Generator.print_exercises(self, forearms_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Lower Body Day")
-            legs_exercises = sample(Legs.exercises, 3)
-            lower_legs_exercises = sample(Lower_Legs.exercises, 2)
-            abs_exercises = sample(Abs.exercises, 2)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, legs_exercises)
-            Generator.print_exercises(self, lower_legs_exercises)
-            Generator.print_exercises(self, abs_exercises)
-            Generator.section("Cool Down")
-            Generator.footer()
-        #A 3 day split will have a chest day, back day, and leg day.
-        elif days == 3:
-            Generator.header("Chest Day")
-            chest_exercises = sample(Chest.exercises, 3)
-            triceps_exercises = sample(Triceps.exercises, 2)
-            shoulders_exercises = sample(Shoulders.exercises, 2)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, chest_exercises)
-            Generator.print_exercises(self, triceps_exercises)
-            Generator.print_exercises(self, shoulders_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Back Day")
-            back_exercises = sample(Back.exercises, 3)
-            biceps_exercises = sample(Biceps.exercises, 2)
-            forearms_exercises = sample(Forearms.exercises, 2)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, back_exercises)
-            Generator.print_exercises(self, biceps_exercises)
-            Generator.print_exercises(self, forearms_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Leg Day")
-            legs_exercises = sample(Legs.exercises, 3)
-            lower_legs_exercises = sample(Lower_Legs.exercises, 2)
-            abs_exercises = sample(Abs.exercises, 2)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, legs_exercises)
-            Generator.print_exercises(self, lower_legs_exercises)
-            Generator.print_exercises(self, abs_exercises)
-            Generator.section("Cool Down")
-            Generator.footer()
-        #A 4 day split should have a Chest Day, Back Day, Leg Day, and Shoulder/Forearm/Ab Day
-        elif days == 4:
-            Generator.header("Chest Day")
-            chest_exercises = sample(Chest.exercises, 4)
-            triceps_exercises = sample(Triceps.exercises, 3)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, chest_exercises)
-            Generator.print_exercises(self, triceps_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Back Day")
-            back_exercises = sample(Back.exercises, 4)
-            biceps_exercises = sample(Biceps.exercises, 3)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, back_exercises)
-            Generator.print_exercises(self, biceps_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Leg Day")
-            legs_exercises = sample(Legs.exercises, 4)
-            lower_legs_exercises = sample(Lower_Legs.exercises, 3)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, legs_exercises)
-            Generator.print_exercises(self, lower_legs_exercises)
-            Generator.section("Cool Down")
-            Generator.header("Arm Day")
-            shoulders_exercises = sample(Shoulders.exercises, 3)
-            forearms_exercises = sample(Forearms.exercises, 3)
-            abs_exercises = sample(Abs.exercises, 3)
-            Generator.section("Warm Ups")
-            Generator.section("Workout")
-            Generator.titles(self)
-            Generator.print_exercises(self, shoulders_exercises)
-            Generator.print_exercises(self, forearms_exercises)
-            Generator.print_exercises(self, abs_exercises)
-            Generator.section("Cool Down")
-            Generator.footer()
-        #If the user tries to input more than 6 days, a warning comes up that they should rest at least one day and
-        #no workout is generated. In the future I'd like to make this loop so that it continues until the number 
-        #given is less than 7.
-        elif days >= 5:
-            print ("You should take a couple of days per week to rest.")
+        else:
             pass
+        Generator.section("Cool Down")
+
+    def generate_back(self, days, large_muscle, small_muscle):
+        Generator.header("Back Day")
+        back_exercises = sample(Back.exercises, large_muscle)
+        biceps_exercises = sample(Biceps.exercises, small_muscle)
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        Generator.print_exercises(self, back_exercises)
+        Generator.print_exercises(self, biceps_exercises)
+        if days == 3:
+            forearms_exercises = sample(Forearms.exercises, small_muscle)
+            Generator.print_exercises(self, forearms_exercises)
+        else:
+            pass
+        Generator.section("Cool Down")
+
+    def generate_legs(self, days, large_muscle, small_muscle):
+        Generator.header("Leg Day")
+        legs_exercises = sample(Legs.exercises, large_muscle)
+        lower_legs_exercises = sample(Lower_Legs.exercises, small_muscle)
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        Generator.print_exercises(self, legs_exercises)
+        Generator.print_exercises(self, lower_legs_exercises)
+        if days == 3:
+            abs_exercises = sample(Abs.exercises, small_muscle)
+            Generator.print_exercises(self, abs_exercises)
+        else:
+            pass
+        Generator.section("Cool Down")
+
+    def generate_arms(self, small_muscle):
+        Generator.header("Arm Day")
+        shoulders_exercises = sample(Shoulders.exercises, small_muscle)
+        forearms_exercises = sample(Forearms.exercises, small_muscle)
+        abs_exercises = sample(Abs.exercises, small_muscle)
+        Generator.section("Warm Ups")
+        Generator.section("Workout")
+        Generator.column_titles(self)
+        Generator.print_exercises(self, shoulders_exercises)
+        Generator.print_exercises(self, forearms_exercises)
+        Generator.print_exercises(self, abs_exercises)
+        Generator.section("Cool Down")
+
+    def create_workout(self, experience, days):
+        Generator.workout_title(self, days, experience)
+        if experience == 1:
+            #If the user only wants to work out 1 day of the week, a full body workout will be generated.
+            for day in range(days):
+                if day % 2 == 0:
+                    Generator.generate_cardio(self, 1)
+                else:
+                    Generator.generate_full_body(self, 1, 1)
+            Generator.footer()
+        elif experience == 2:
+            workout = days // 2
+            cardio = (days % 2) * workout
+            if days == 1:
+                Generator.generate_cardio(self, 1)
+            elif days < 5:
+                for day in range(workout):
+                    Generator.generate_upper_body(self, 1, 1)
+                    Generator.generate_lower_body(self, 2, 1)
+                for day in range(cardio):
+                    Generator.generate_cardio(self, 1)
+            else:
+                for day in range(0, 2):
+                    Generator.generate_upper_body(self, 1, 1)
+                    Generator.generate_lower_body(self, 2, 1)
+                for day in range(0, days - 4):
+                    Generator.generate_cardio(self, 1)
+            Generator.footer()
+        elif experience == 3:
+            #If the user only wants to work out 1 day of the week, a full body workout will be generated.
+            if days == 1:
+                Generator.generate_full_body(self, 1, 1)
+            #A 2 day split should consist of an upper body and a lower body day.
+            elif days == 2:
+                Generator.generate_upper_body(self, 2, 1)
+                Generator.generate_lower_body(self, 2, 1)
+            #A 3 day split will have a chest day, back day, and leg day.
+            elif days == 3:
+                Generator.generate_chest(self, days, 3, 2)
+                Generator.generate_back(self, days, 3, 2)
+                Generator.generate_legs(self, days, 3, 2)
+            #A 4 day split should have a Chest Day, Back Day, Leg Day, and Shoulder/Forearm/Ab Day
+            elif days >= 4:
+                Generator.generate_chest(self, days, 3, 2)
+                Generator.generate_back(self, days, 3, 2)
+                Generator.generate_legs(self, days, 3, 2)
+                Generator.generate_arms(self, 2)
+                for day in range(0, days - 4):
+                    Generator.generate_cardio(self, 1)
+            #If the user tries to input more than 6 days, a warning comes up that they should rest at least one day and
+            #no workout is generated. In the future I'd like to make this loop so that it continues until the number 
+            #given is less than 7.
+            Generator.footer()
 
 class Engine(object):
     def start(Generator):
         Generator.get_goal()
         Generator.get_preferences()
+        experience = Generator.get_experience()
         days = Generator.get_frequency()
-        Generator.create_workout(days)
+        days = Generator.check_frequency(days)
+        Generator.create_workout(experience, days)
 
 gen1 = Generator()
 Engine.start(gen1)
