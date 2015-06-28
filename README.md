@@ -29,13 +29,13 @@ Python Workout Generator v0.4
 * Muscles accounted for in the workout: chest, back, legs, triceps, biceps, shoulders, forearms, calves, abs.
 * Take into account a user's goals (Strength, Endurance, Hypertrophy.)
 * Take into account a user's preference (Free weights, selectorized equipment, or cable equipment.)
+* Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout given accordingly.
 * Save routine to a file for easy access later.
 
 ### Possible future features ###
 
 * Add warm-ups, cool downs, and foam rolling to make the workouts more complete.
 * Include rest and tempo into the format.
-* Take into account a user's fitness level (beginner, intermediate, advanced) and modify the workout given accordingly.
 * Allow user to input how many sets, reps, and weight for each exercise completed in order to track their progress.
 * Allow user to substitute individual exercises in their list.
 * Remember weight used for each exercise in previous workouts if the user has input them afterwards and suggest the highest weight used for each.
