@@ -1,6 +1,9 @@
 from random import sample
 from exercises import *
-log = open("/home/billy/Desktop/Workout.txt", "w")
+from time import sleep
+from datetime import date
+today = str(date.today())
+log = open("/home/billy/Desktop/Workout " + today + ".txt", "w")
 
 #Create the generator class which will actually create the routines according to the desired number of days per week.
 class Generator(object):
@@ -29,7 +32,7 @@ class Generator(object):
                 self.template = '| {:^50} | {:^7} | {:^6} | {:^12} | {:^12} |'
                 break
             else:
-                print ("Sorry, please try again.")
+                print ("Please enter strength, endurance, or hypertrophy.")
                 goal = input("Is your goal to gain strength, endurance, or hypertrophy?\n>>> ")
                 goal = goal.lower()
         return self.sets, self.target_reps, self.actual_reps, self.template
@@ -47,6 +50,14 @@ class Generator(object):
                 self.experience = input("How long have you been working out for?\n1. 0-6 months\n2. 6 months - 2 years\n3. 2+ years\n>>> ")
             else:
                 break
+        return self.experience
+
+    def check_experience(self, experience):
+        while self.experience > 3 or self.experience < 1:
+            print("Please choose between choice 1, 2, or 3.")
+            self.experience = Generator.get_experience(self)
+        else:
+            pass
         return self.experience
 
     def get_frequency(self):
@@ -362,14 +373,17 @@ class Generator(object):
             #given is less than 7.
             Generator.footer()
 
+
 class Engine(object):
     def start(Generator):
         Generator.get_goal()
         Generator.get_preferences()
         experience = Generator.get_experience()
+        experience = Generator.check_experience(experience)
         days = Generator.get_frequency()
         days = Generator.check_frequency(days)
         Generator.create_workout(experience, days)
+        log.close()
 
 gen1 = Generator()
 Engine.start(gen1)
