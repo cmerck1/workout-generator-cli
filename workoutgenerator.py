@@ -5,13 +5,16 @@ from datetime import date
 today = str(date.today())
 log = open("/home/billy/Desktop/Workout " + today + ".txt", "w")
 
-#Create the generator class which will actually create the routines according to the desired number of days per week.
+#Create the generator class which will actually create the routines according 
+#to the desired number of days per week.
 class Generator(object):
     def get_goal(self):
-        #Get  input from user for goals and store it in a variable called "goal".
+        #Get  input from user for goals and store it in a variable called 
+        #"goal".
         goal = input("Is your goal to gain strength, endurance, or hypertrophy?\n>>> ")
         goal = goal.lower()
-        #This section changes the information printed out and the format printed according to the goal.
+        #This section changes the information and format printed out 
+        #according to the goal.
         while True:
             if "strength" in goal:
                 self.sets = "5-8"
@@ -38,10 +41,11 @@ class Generator(object):
         return self.sets, self.target_reps, self.actual_reps, self.template
 
     def get_experience(self):
-        #Ask the user how much experience they have working out and store that number in a variable called
-        #"experience".
+        #Ask the user how much experience they have working out and 
+        #store that number in a variable called "experience".
         self.experience = input("How long have you been working out for?\n1. 0-6 months\n2. 6 months - 2 years\n3. 2+ years\n>>> ")
-        #Loop through the input request until the user gives a number. The loop continues until a number is given.
+        #Loop through the input request until the user gives a number. 
+        #The loop continues until a number is given.
         while True:
             try:
                 self.experience = int(self.experience)
@@ -53,6 +57,8 @@ class Generator(object):
         return self.experience
 
     def check_experience(self, experience):
+        #This function verifies that the number given was within the range of
+        #options. It can probably be edited out for the mobile versions.
         while self.experience > 3 or self.experience < 1:
             print("Please choose between choice 1, 2, or 3.")
             self.experience = Generator.get_experience(self)
@@ -61,10 +67,11 @@ class Generator(object):
         return self.experience
 
     def get_frequency(self):
-        #Ask the user how many days per week they want to work out and store that number in a variable called
-        #"days".
+        #Ask the user how many days per week they want to work out and store 
+        #that number in a variable called "days".
         self.days = input("How many days would you like to workout this week?\n>>> ")
-        #Loop through the input request until the user gives a number. The loop continues until a number is given.
+        #Loop through the input request until the user gives a number. 
+        #The loop continues until a number is given.
         while True:
             try:
                 self.days = int(self.days)
@@ -76,6 +83,8 @@ class Generator(object):
         return self.days
 
     def check_frequency(self, days):
+        #This function verifies that the number of days to workout is 
+        #between 1 and 6.
         while self.days >= 7 or self.days < 1:
             if self.days == 7:
                 print("You need to take at least one rest day per week.")
@@ -90,10 +99,12 @@ class Generator(object):
                 pass
         return self.days
 
-    #This funciton takes the user's preferences for each given category of exercises and if the user says
-    #they do like using a given piece of equipment/style of working out, then the list of those exercises
-    #for each muscle group are added to the main list for each muscle group. If the user says they don't
-    #like a certain type of exercise, then the list of those exercises is just ignored. Only exercises
+    #This funciton takes the user's preferences for each given category 
+    #of exercises and if the user says they do like using a given piece of
+    # equipment/style of working out, then the list of those exercises
+    #for each muscle group are added to the main list for each muscle group. 
+    #If the user says they don't like a certain type of exercise, 
+    #then the list of those exercises is just ignored. Only exercises
     #found in the main exercises list are used when generating the workout.
     def user_preference(self, equipment0, equipment1, equipment2, equipment3, equipment4, equipment5, equipment6, equipment7, equipment8, name):
         preference = input("Do you like using and/or have access to {!s}?\n>>> ".format(name))
@@ -126,13 +137,15 @@ class Generator(object):
         return preference
 
     def get_preferences(self):
-        #Here the function is called for each type of exercise to build the main exercise list which
-        #is the only list considered in generating the workout.
+        #Here the function is called for each type of exercise to build 
+        #the main exercise list which is the only list considered in 
+        #generating the workout.
         Generator.user_preference(self, Chest.selectorized, Back.selectorized, Legs.selectorized, Lower_Legs.selectorized, Biceps.selectorized, Triceps.selectorized, Shoulders.selectorized, Forearms.selectorized, Abs.selectorized, "selectorized equipment")
-        #In order to remove some repition, and since dumbbells and barbells are part of the free
-        #weights category, the program will only ask the user if they want to use dumbbells and
-        #barbells if they have already said that they like free weights. Otherwise, those two
-        #options are skipped.
+        #In order to remove some repition, and since dumbbells and 
+        #barbells are part of the free weights category, the program will 
+        #only ask the user if they want to use dumbbells and barbells if 
+        #they have already said that they like free weights. Otherwise, 
+        #those two options are skipped.
         fwpref = Generator.user_preference(self, Chest.free_weights, Back.free_weights, Legs.free_weights, Lower_Legs.free_weights, Biceps.free_weights, Triceps.free_weights, Shoulders.free_weights, Forearms.free_weights, Abs.free_weights, "free weights")
         if "y" in fwpref:
             Generator.user_preference(self, Chest.dumbbell, Back.dumbbell, Legs.dumbbell, Lower_Legs.dumbbell, Biceps.dumbbell, Triceps.dumbbell, Shoulders.dumbbell, Forearms.dumbbell, Abs.dumbbell, "dumbbell")
@@ -143,6 +156,8 @@ class Generator(object):
         Generator.user_preference(self, Chest.cable, Back.cable, Legs.cable, Lower_Legs.cable, Biceps.cable, Triceps.cable, Shoulders.cable, Forearms.cable, Abs.cable, "cable equipment")
 
     def workout_title(self, days, experience):
+        #This function prints out the title of the workout, according to 
+        #how many days the user will workout and their experience.
         if experience == 1:
             print("-" * 103, file = log)
             print('| {:^99} |'.format("Beginner - " + str(days) + " Day Split"), file = log)
@@ -153,13 +168,16 @@ class Generator(object):
             print("-" * 103, file = log)
             print('| {:^99} |'.format("Advanced - " + str(days) + " Day Split"), file = log)
 
-    #The format for the header, taking the name of the workout day as an argument.
+    #The format for the header, taking the name of the workout day as an 
+    #argument.
     def header(workout):
         print("|", "-" * 99, "|", file = log)
         print('| {:^99} |'.format(workout), file = log)
         print("|", "-" * 99, "|", file = log)
 
     def section(name):
+        #This funciton prints out the format for the workout, according to
+        #which section of the workout is being printed out.
         if name == "Warm Ups":
             print('| {:<99} |'.format(name), file = log)
             print("|", "-" * 99, "|", file = log)
@@ -174,7 +192,7 @@ class Generator(object):
             print('| {:<99} |'.format(name), file = log)
             print("|", "-" * 99, "|", file = log)
 
-    #This formats the column_titles of the columns.
+    #This formats the titles of the columns.
     def column_titles(self):
         print (self.template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"), file = log)
         print("|", "-" * 99, "|", file = log)
@@ -185,11 +203,13 @@ class Generator(object):
         print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"), file = log)
         print("-" * 103, file = log)
 
-    #These methods print out all of the exercises for each given muscle group.
+    #This method prints out all of the exercises for each given muscle group.
     def print_exercises(self, muscle_group):
         for item in muscle_group:
             print (self.template.format(item, '_____', self.sets, self.target_reps, self.actual_reps), file = log) 
 
+    #The following functions print out the exercises for the given muscle
+    #groups.
     def generate_cardio(self, exercises):
         Generator.header("Cardio Day")
         Generator.section("Warm Ups")
@@ -200,10 +220,11 @@ class Generator(object):
 
     def generate_full_body(self, large_muscle, small_muscle):
         Generator.header("Full Body Day")
-        #The sample method grabs a number of random exercises from the given list and stores
-        #them in a variable according to the exercise.
+        #The sample method grabs a number of random exercises from the 
+        #given list and stores them in a variable according to the exercise.
         Generator.section("Warm Ups")
-        #This section prints out the exercises in a list according to the template above.
+        #This section prints out the exercises in a list according to the 
+        #template above.
         Generator.section("Workout")
         Generator.column_titles(self)
         chest_exercises = sample(Chest.exercises, large_muscle)
@@ -320,9 +341,13 @@ class Generator(object):
         Generator.section("Cool Down")
 
     def create_workout(self, experience, days):
+        #This function puts all the exercises together according to the format
+        #given.
         Generator.workout_title(self, days, experience)
         if experience == 1:
-            #If the user only wants to work out 1 day of the week, a full body workout will be generated.
+            #Beginners will always have a cardio day if it is an even-numbered
+            #day and a weights day if it is an odd-numbered day. This function
+            #checks which day it is and provides the workout accordingly.
             for day in range(days):
                 if day % 2 == 0:
                     Generator.generate_cardio(self, 1)
@@ -330,6 +355,9 @@ class Generator(object):
                     Generator.generate_full_body(self, 1, 1)
             Generator.footer()
         elif experience == 2:
+            #Intermediate lifters should have cardio on every third day and 
+            #weights days on every even pair of days. If only one day is
+            #requested, then it will be a cardio day.
             workout = days // 2
             cardio = (days % 2) * workout
             if days == 1:
@@ -348,7 +376,10 @@ class Generator(object):
                     Generator.generate_cardio(self, 1)
             Generator.footer()
         elif experience == 3:
-            #If the user only wants to work out 1 day of the week, a full body workout will be generated.
+            #Advanced lifters have more specific rules according to how many
+            #days per week they can/want to work out. If the user only wants 
+            #to work out 1 day of the week, a full body workout will be 
+            #generated.
             if days == 1:
                 Generator.generate_full_body(self, 1, 1)
             #A 2 day split should consist of an upper body and a lower body day.
@@ -360,7 +391,9 @@ class Generator(object):
                 Generator.generate_chest(self, days, 3, 2)
                 Generator.generate_back(self, days, 3, 2)
                 Generator.generate_legs(self, days, 3, 2)
-            #A 4 day split should have a Chest Day, Back Day, Leg Day, and Shoulder/Forearm/Ab Day
+            #A 4 day split should have a Chest Day, Back Day, Leg Day, 
+            #and Shoulder/Forearm/Ab Day. Any additional days should just be
+            #cardio days.
             elif days >= 4:
                 Generator.generate_chest(self, days, 3, 2)
                 Generator.generate_back(self, days, 3, 2)
@@ -368,13 +401,11 @@ class Generator(object):
                 Generator.generate_arms(self, 2)
                 for day in range(0, days - 4):
                     Generator.generate_cardio(self, 1)
-            #If the user tries to input more than 6 days, a warning comes up that they should rest at least one day and
-            #no workout is generated. In the future I'd like to make this loop so that it continues until the number 
-            #given is less than 7.
             Generator.footer()
 
 
 class Engine(object):
+    #This function runs all of the functions required to make the program run.
     def start(Generator):
         Generator.get_goal()
         Generator.get_preferences()
