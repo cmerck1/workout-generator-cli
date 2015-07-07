@@ -5,9 +5,9 @@ class Chest(object):
     selectorized = ["Seated Chest Press", "Seated Fly"]
     dumbbell = ["Dumbbell Chest Press", "Dumbbell Flies", "Inclined Dumbbell Chest Press", "Declined Dumbbell Chest Press",]
     barbell = ["Barbell Chest Press", "Inclined Barbell Chest Press", "Declined Barbell Chest Press"]
-    cable = ["Cable Crossovers"]
+    cable = ["Cable Crossovers", "Cable Fly", "Cable Chest Press"]
     calisthenics = ["Push Ups", "Inclined Push Ups", "Stability Ball Pushups", "Medicine Ball Push Ups"]
-    free_weights = []
+    free_weights = ["Seated Plate-Loaded Chest Press"]
     warm_up = []
     cool_down = []
 
@@ -17,8 +17,8 @@ class Back(object):
     dumbbell = ["Dumbbell Bent-Over Row",]
     barbell = ["Barbell Bent-Over Row",]
     cable = ["Seated Cable Row", "Seated Cable Lat-Pulldown"]
-    calisthenics = ["Pull Ups", "Roman Chair Extensions"]
-    free_weights = []
+    calisthenics = ["Pull Ups", "Roman Chair Extensions", "Decline Standing Row"]
+    free_weights = ["Plate-Loaded Seated Lat Pull-Down"]
     warm_up = []
     cool_down = []
 
@@ -82,7 +82,7 @@ class Forearms(object):
 
 class Abs(object):
     exercises = []
-    selectorized = []
+    selectorized = ["Seated Ab Crunch"]
     dumbbell = []
     barbell = []
     cable = []
@@ -90,4 +90,4 @@ class Abs(object):
     free_weights = []
 
 class Cardio(object):
-    exercises = []
+    exercises = ["Treadmill Sprints", "Bear Crawls", "Sled Run", "Battle Ropes", "Tire Flips", "Stationary Bike Sprints"]
