@@ -210,12 +210,13 @@ class Generator(object):
 
     #The following functions print out the exercises for the given muscle
     #groups.
-    def generate_cardio(self, exercises):
+    def generate_cardio(self, quantity):
         Generator.header("Cardio Day")
         Generator.section("Warm Ups")
         Generator.section("Workout")
         Generator.column_titles(self)
-        print("I need to add cardio exercises.", file = log)
+        cardio_exercises = sample(Cardio.exercises, quantity)
+        Generator.print_exercises(self, cardio_exercises)
         Generator.section("Cool Down")
 
     def generate_full_body(self, large_muscle, small_muscle):
@@ -361,19 +362,19 @@ class Generator(object):
             workout = days // 2
             cardio = (days % 2) * workout
             if days == 1:
-                Generator.generate_cardio(self, 1)
+                Generator.generate_cardio(self, 3)
             elif days < 5:
                 for day in range(workout):
                     Generator.generate_upper_body(self, 1, 1)
                     Generator.generate_lower_body(self, 2, 1)
                 for day in range(cardio):
-                    Generator.generate_cardio(self, 1)
+                    Generator.generate_cardio(self, 3)
             else:
                 for day in range(0, 2):
                     Generator.generate_upper_body(self, 1, 1)
                     Generator.generate_lower_body(self, 2, 1)
                 for day in range(0, days - 4):
-                    Generator.generate_cardio(self, 1)
+                    Generator.generate_cardio(self, 3)
             Generator.footer()
         elif experience == 3:
             #Advanced lifters have more specific rules according to how many
@@ -400,7 +401,7 @@ class Generator(object):
                 Generator.generate_legs(self, days, 3, 2)
                 Generator.generate_arms(self, 2)
                 for day in range(0, days - 4):
-                    Generator.generate_cardio(self, 1)
+                    Generator.generate_cardio(self, 3)
             Generator.footer()
 
 
