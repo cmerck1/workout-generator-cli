@@ -206,7 +206,7 @@ class Generator(object):
     #This method prints out all of the exercises for each given muscle group.
     def print_exercises(self, muscle_group):
         for item in muscle_group:
-            print (self.template.format(item, '_____', self.sets, self.target_reps, self.actual_reps), file = log) 
+            print (self.template.format(item, '_____', self.sets, self.target_reps, self.actual_reps))#, file = log) 
 
     #The following functions print out the exercises for the given muscle
     #groups.
