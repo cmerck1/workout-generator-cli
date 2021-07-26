@@ -3,7 +3,7 @@ from exercises import *
 from time import sleep
 from datetime import date
 today = str(date.today())
-log = open("/home/billy/Desktop/Workout " + today + ".txt", "w")
+#log = open("/home/billy/Desktop/Workout " + today + ".txt", "w") #whatever this file is, I don't have it on my PC
 
 #Create the generator class which will actually create the routines according 
 #to the desired number of days per week.
