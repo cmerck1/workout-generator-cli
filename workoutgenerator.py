@@ -159,49 +159,49 @@ class Generator(object):
         #This function prints out the title of the workout, according to 
         #how many days the user will workout and their experience.
         if experience == 1:
-            print("-" * 103, file = log)
-            print('| {:^99} |'.format("Beginner - " + str(days) + " Day Split"), file = log)
+            print("-" * 103,) #file = log) commented out problem file
+            print('| {:^99} |'.format("Beginner - " + str(days) + " Day Split")) #, #file = log)
         elif experience == 2:
-            print("-" * 103, file = log)
-            print('| {:^99} |'.format("Intermediate - " + str(days) + " Day Split"), file = log)
+            print("-" * 103,) #file = log) commented out probelm file
+            print('| {:^99} |'.format("Intermediate - " + str(days) + " Day Split")) #, #file = log)
         elif experience == 3:
-            print("-" * 103, file = log)
-            print('| {:^99} |'.format("Advanced - " + str(days) + " Day Split"), file = log)
+            print("-" * 103,) #file = log) commented out the probelm file
+            print('| {:^99} |'.format("Advanced - " + str(days) + " Day Split")) #, #file = log)
 
     #The format for the header, taking the name of the workout day as an 
     #argument.
     def header(workout):
-        print("|", "-" * 99, "|", file = log)
-        print('| {:^99} |'.format(workout), file = log)
-        print("|", "-" * 99, "|", file = log)
+        print("|", "-" * 99, "|")#, file = log)
+        print('| {:^99} |'.format(workout))#, #file = log)
+        print("|", "-" * 99, "|")#, #file = log)
 
     def section(name):
         #This funciton prints out the format for the workout, according to
         #which section of the workout is being printed out.
         if name == "Warm Ups":
-            print('| {:<99} |'.format(name), file = log)
-            print("|", "-" * 99, "|", file = log)
-            print('| {:^99} |'.format("Refer to the " + name + " section of the app for the muscles you are training."), file = log)
-            print("|", "-" * 99, "|", file = log)
+            print('| {:<99} |'.format(name))#, file = log)
+            print("|", "-" * 99, "|")#, file = log)
+            print('| {:^99} |'.format("Refer to the " + name + " section of the app for the muscles you are training."))#, #file = log)
+            print("|", "-" * 99, "|")#, file = log)
         elif name == "Cool Down":
-            print("|", "-" * 99, "|", file = log)
-            print('| {:<99} |'.format(name), file = log)
-            print("|", "-" * 99, "|", file = log)
-            print('| {:^99} |'.format("Refer to the " + name + " section of the app for the muscles you are training."), file = log)
+            print("|", "-" * 99, "|")#, file = log)
+            print('| {:<99} |'.format(name))#, file = log)
+            print("|", "-" * 99, "|")#, file = log)
+            print('| {:^99} |'.format("Refer to the " + name + " section of the app for the muscles you are training."))#, #file = log)
         else:
-            print('| {:<99} |'.format(name), file = log)
-            print("|", "-" * 99, "|", file = log)
+            print('| {:<99} |'.format(name))#, file = log)
+            print("|", "-" * 99, "|")#, file = log)
 
     #This formats the titles of the columns.
     def column_titles(self):
-        print (self.template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"), file = log)
-        print("|", "-" * 99, "|", file = log)
+        print (self.template.format("Exercise", "Weight", "Sets", "Target Reps", "Actual Reps"))#, file = log)
+        print("|", "-" * 99, "|")#, file = log)
 
     #This closes up the table at the bottom and adds a little note.
     def footer():
-        print("|", "-" * 99, "|", file = log)
-        print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"), file = log)
-        print("-" * 103, file = log)
+        print("|", "-" * 99, "|")#, file = log)
+        print('| {:^99} |'.format("Complete this routine for 2-3 weeks and then come generate a new one!"))#, file = log)
+        print("-" * 103)#, file = log)
 
     #This method prints out all of the exercises for each given muscle group.
     def print_exercises(self, muscle_group):
@@ -415,7 +415,7 @@ class Engine(object):
         days = Generator.get_frequency()
         days = Generator.check_frequency(days)
         Generator.create_workout(experience, days)
-        log.close()
+        #log.close() #commenting out the problem files
 
 gen1 = Generator()
 Engine.start(gen1)
